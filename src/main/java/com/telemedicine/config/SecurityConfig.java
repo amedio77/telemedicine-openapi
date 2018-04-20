@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
@@ -70,11 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login/**").permitAll()
-                .antMatchers("/img/**").permitAll()
-                .antMatchers("/js/*.js").permitAll()
-                .antMatchers("/css/*.css").permitAll()
-                .antMatchers("/favicon.ico").permitAll()
+                .antMatchers("/login/**","/signup/**").permitAll()
+                .antMatchers("/img/**","/js/*.js","/css/*.css","/favicon.ico").permitAll()
                 .antMatchers("/oauth/token").permitAll()
                 .antMatchers("/oauth/authorize").permitAll()
                 .antMatchers("/api").authenticated()
@@ -91,7 +89,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin().defaultSuccessUrl("/test")
                 .and().exceptionHandling().accessDeniedPage("/login/index.html")
                 .and().csrf().disable();
-
     }
 
 

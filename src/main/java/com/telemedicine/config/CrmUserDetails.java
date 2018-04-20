@@ -21,6 +21,7 @@ public class CrmUserDetails implements UserDetails {
     private String password;
     private String userid;
 
+
     public CrmUserDetails(UserInfo user) {
 
        // Authentication a = SecurityContextHolder.getContext().getAuthentication();
