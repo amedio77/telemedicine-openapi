@@ -1,0 +1,252 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/css/jquery.jsonPresenter.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="http://getbootstrap.com/docs/4.1/examples/dashboard/dashboard.css" rel="stylesheet">\
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.jsonPresenter.js"></script>
+
+    <script>
+
+        function getCode(){
+            location.href="http://localhost:8080/oauth/authorize?client_id=crmClient-redirect&response_type=code";
+        }
+
+        function getToken() {
+            var hostname = window.location.origin;
+            $.ajax({
+                // url: "https://telemedicine-api-delightful-roan.34.203.146.2.xip.io/",
+                url: hostname+"/oauth/token",
+                type: "POST"
+                , dataType: "json"
+                // , jsonp : "jsonp"
+                , contentType: "application/json"
+                , crossDomain: true,
+                xhrFields: {
+                    withCredentials: true
+                }
+                , headers: {
+                   // 'Authorization': 'Basic Y3JtQ2xpZW50MTpjcm1TdXBlclNlY3JldA==',
+                    'Authorization': 'Basic '+btoa($('#clientid').val() + ":" + $('#secret').val()),
+                    'Cache-Control': 'no-cache',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    "Access-Control-Allow-Origin": "*"
+                    , "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS"
+                    , "Access-Control-Allow-Headers": "origin, x-requested-with, content-type, accept"
+                },
+                data: {'username': $('#userid').val(), 'password': $('#userpw').val(), 'grant_type': "password"}
+            }).then(function (data) {
+                $('#stoken').val(data.access_token);
+               // $('#srefresh_token').val(data.refresh_token);
+            });
+        }
+
+        function setUrl(){
+            var hostname = window.location.origin;
+            //var sdomain = $(location).attr('host');
+            $('#surl').val( hostname+$('#apiid').val());
+        }
+
+        function getData() {
+            $.ajax({
+                // url: "https://telemedicine-api-delightful-roan.34.203.146.2.xip.io/",
+                //url: "http://localhost:8080"+$('#apiid').val(),
+                url: $('#surl').val(),
+                type: "GET"
+                , dataType: "json"
+                , contentType: "application/json"
+                , crossDomain: true
+                , xhrFields: {
+                    withCredentials: true
+                }
+                , headers: {
+                   // 'Authorization': 'Basic Y3JtQ2xpZW50MTpjcm1TdXBlclNlY3JldA==',
+                    'Cache-Control': 'no-cache',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    "Access-Control-Allow-Origin": "*"
+                    //,"Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS"
+                    //,"Access-Control-Allow-Headers": "origin, x-requested-with, content-type, accept"
+                    , "Authorization": "Bearer " + $('#stoken').val()
+                }
+                //,data: {'username': $('#userid').val(), 'password': $('#userpw').val(),'grant_type': "password"}
+            }).then(function (data) {
+                $('#json-container').jsonPresenter({
+                    json: data, // JSON objects here
+                });
+            });
+        }
+    </script>
+</head>
+
+
+
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Telemedicine</a>
+    <!--<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">-->
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="/logout">Sign out</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link " href="/user">
+                            <span data-feather="home"></span>
+                            개발자 정보
+                            <!--<span class="sr-only">(current)</span>-->
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link active" href="/test">
+                            <span data-feather="file"></span>
+                            Api Test
+                        </a>
+                    </li>
+                    <!--
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="shopping-cart"></span>
+                            Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="users"></span>
+                            Customers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="bar-chart-2"></span>
+                            Reports
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="layers"></span>
+                            Integrations
+                        </a>
+                    </li>
+                    -->
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="table-responsive">
+
+<!-- ################## --!>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header"><h1></h1>
+                                <h2>Telemedicine Open Api Test Form</h2></div>
+                            <!--
+                                            <div class="form-group">
+                                                <label for="code">code</label>
+                                                <input type="text" class="form-control" name="code" id="code" >
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="button" class="btn btn-primary" value="getCode" onclick="getCode()">
+                                            </div>
+                            -->
+                            <div class="form-group">
+                                <label for="clientid">clientid</label>
+                                <input type="text" class="form-control" name="clientid" id="clientid" value="crmClient1">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="secret">secret</label>
+                                <input type="text" class="form-control" name="secret" id="secret" value="crmSuperSecret">
+                            </div>
+
+                            <div class="form-group ">
+                                <label for="userid" >ID</label>
+                                <input type="text" class="form-control" id="userid" value="test1">
+                            </div>
+                            <div class="form-group">
+                                <label for="userpw">Password</label>
+                                <input type="password" class="form-control" id="userpw" value="1234">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="button" class="btn btn-primary" value="getToken" onclick="getToken()">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="stoken">Access Token</label>
+                                <input type="text" class="form-control" name="stoken" id="stoken" >
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <select class="custom-select" id="apiid" onchange="setUrl()">
+                                        <option selected>Choose...</option>
+                                        <option value="/api">OPEN API Repository 목록</option>
+                                        <option value="/api/member">회원정보</option>
+                                        <option value="/api/telemedicines">원격진료정보</option>
+                                        <option value="/api/lifelogca">크로이드 스마트밴드 활동량</option>
+                                        <option value="/api/lifelogca250">크로이드 스마트밴드 활동량 250</option>
+                                        <option value="/api/lifelogcs">크로이드 스마트밴드 수면</option>
+                                        <option value="/api/lifelogcs250">크로이드 스마트밴드 수면 250</option>
+                                        <option value="/api/lifelogrb">리본혈당</option>s
+                                        <option value="/api/lifelogbb">보령협압</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="apiid" >API</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control"  id="surl">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="getData()">Go</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div id="json-container">...</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+<!-- ################## --!>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="http://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+<!-- Graphs -->
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>Telemedicine Opan Api Dev</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="http://getbootstrap.com/docs/4.1/examples/dashboard/dashboard.css" rel="stylesheet">
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box}
+
+        /* Full-width input fields */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        input[type=text]:focus, input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        /* Set a style for all buttons */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        button:hover {
+            opacity:1;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+            padding: 14px 20px;
+            background-color: #f44336;
+        }
+
+        /* Float cancel and signup buttons and add an equal width */
+        .cancelbtn, .signupbtn {
+            float: left;
+            width: 50%;
+        }
+
+        /* Add padding to container elements */
+        .container {
+            padding: 16px;
+        }
+
+        /* Clear floats */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        /* Change styles for cancel button and signup button on extra small screens */
+        @media screen and (max-width: 300px) {
+            .cancelbtn, .signupbtn {
+                width: 100%;
+            }
+        }
+    </style>
+<script>
+    function saveUser() {
+        var hostname = window.location.origin;
+        $.ajax({
+            // url: "https://telemedicine-api-delightful-roan.34.203.146.2.xip.io/",
+            //url: "http://localhost:8080"+$('#apiid').val(),
+            url: hostname+"/user",
+            type: "POST"
+            , dataType: "json"
+            , contentType: "application/json"
+            , crossDomain: true
+            , xhrFields: {
+                withCredentials: true
+            }
+            , headers: {
+                // 'Authorization': 'Basic Y3JtQ2xpZW50MTpjcm1TdXBlclNlY3JldA==',
+                'Cache-Control': 'no-cache',
+                'Content-Type': 'application/x-www-form-urlencoded',
+                "Access-Control-Allow-Origin": "*"
+                //,"Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS"
+                //,"Access-Control-Allow-Headers": "origin, x-requested-with, content-type, accept"
+                , "Authorization": "Bearer " + $('#stoken').val()
+            }
+            //,data: {'username': $('#userid').val(), 'password': $('#userpw').val(),'grant_type': "password"}
+        }).then(function (data) {
+            $('#json-container').jsonPresenter({
+                json: data, // JSON objects here
+            });
+        });
+    }
+</script>
+</head>
+
+<body>
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Telemedicine</a>
+    <!--<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">-->
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="/logout">Sign out</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/user">
+                            <span data-feather="home"></span>
+                            개발자 정보
+                            <!--<span class="sr-only">(current)</span>-->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/test">
+                            <span data-feather="file"></span>
+                            Api Test
+                        </a>
+                    </li>
+                </ul>
+            </div>s
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto px-4">
+            <div class="table-responsive">
+                <form action="/action_page.php" style="border:1px solid #ccc">
+                    <div class="container">
+                        <h1>개발자 정보</h1>
+                        <p>Today is 2: <span th:text="${userinfo.userId}"></span>.</p>
+                        <hr>
+
+                        <label><b>ID :: </b></label>
+                        <input type="text" placeholder="Enter userid" name="userid" id="userid" th:value="${userinfo.userId}" >
+
+                        <label for="pass"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="pass" id="pass" required>
+
+                        <label for="repass"><b>Repeat Password</b></label>
+                        <input type="password" placeholder="Repeat Password" name="repass" id="repass" required>
+
+                        <div class="clearfix">
+                            <button type="button" class="cancelbtn">Cancel</button>
+                            <button type="button" class="signupbtn" onclick="saveUser()">Sign Up</button>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="http://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+<!-- Graphs -->
+
+</body>
+</html>
