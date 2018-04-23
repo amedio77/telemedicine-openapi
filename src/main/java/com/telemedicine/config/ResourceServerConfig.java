@@ -1,10 +1,15 @@
 package com.telemedicine.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableResourceServer
@@ -18,9 +23,16 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 				anonymous().disable()
 				.requestMatchers().antMatchers("/api/**")
 				.and().authorizeRequests()
-				.antMatchers("/api/**").access("hasRole('ADMIN') or hasRole('USER')")
+				.antMatchers("/api/user/userinfo/**","/api/member/**").access("hasRole('ADMIN') ")
+				.antMatchers("/api/**").access("hasRole('ADMIN') or hasRole('USER') ")
 				.and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
 
 	}
-	
+/*
+	@Bean
+	public TokenStore JdbcTokenStore(DataSource dataSource) {
+		return new JdbcTokenStore(dataSource);
+	}
+*/
+
 }

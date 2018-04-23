@@ -56,7 +56,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .withClient("crmClient1")
                 .secret(password)
                 .authorizedGrantTypes("password", "password", "authorization_code", "refresh_token")
-                .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
+                //.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
+                .authorities("ROLE_ADMIN")
                 .scopes("read", "write", "trust")
                 //.accessTokenValiditySeconds(ONE_DAY)
                 //.accessTokenValiditySeconds(300)
@@ -77,7 +78,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     // 사용자 정의 USER 테이블의 정보를 가지고 인증하여 토큰 발급 crmUserDetailsService
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler)
+        endpoints.tokenStore(tokenStore)
+                .userApprovalHandler(userApprovalHandler)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(crmUserDetailsService);
     }

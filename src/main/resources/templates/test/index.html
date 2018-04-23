@@ -55,6 +55,11 @@
         }
 
         function getData() {
+
+            $('#json-container').jsonPresenter({
+                json: "", // JSON objects here
+            });
+
             $.ajax({
                 // url: "https://telemedicine-api-delightful-roan.34.203.146.2.xip.io/",
                 //url: "http://localhost:8080"+$('#apiid').val(),

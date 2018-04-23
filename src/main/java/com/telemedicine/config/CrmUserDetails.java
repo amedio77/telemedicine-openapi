@@ -31,12 +31,13 @@ public class CrmUserDetails implements UserDetails {
         this.userid = user.getUserId();
         this.password = user.getPass();
 
-        logger.debug("userid::"+this.userid);
-        logger.debug("password::"+this.password);
+        logger.info("userid::"+this.userid);
+        logger.info("password::"+this.password);
+        logger.info("role type::"+user.getRoleType());
 
         //this.authorities = translate(com.telemedicine.config.user.getRoles());
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        //authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         this.authorities=authorities ;
     }

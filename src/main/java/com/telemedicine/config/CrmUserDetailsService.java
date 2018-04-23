@@ -41,7 +41,7 @@ public class CrmUserDetailsService implements UserDetailsService {
         UserInfo userInfoResult = null;
 
         for (UserInfo userInfo : userList) {
-            //logger.debug("loadUserByUsername="+memberInfo.getPass());
+            logger.debug("loadUserByUsername="+userInfo.getUserId());
             userInfoResult = userInfo;
         };
 
