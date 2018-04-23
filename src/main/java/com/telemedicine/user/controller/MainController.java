@@ -1,6 +1,5 @@
 package com.telemedicine.user.controller;
 
-
 import com.telemedicine.user.entity.UserInfo;
 import com.telemedicine.user.form.User;
 import com.telemedicine.user.repositoty.UserInfoRepository;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.List;
 
@@ -54,6 +54,11 @@ public class MainController {
             return "redirect:login";
         }
 
+        List<UserInfo> userinfo = userInfoRepository.findByUserId(user.getUserId());
+        for( UserInfo m : userinfo) {
+            return "redirect:signup";
+        }
+
         userInfoRepository.save(
                 new UserInfo( user.getUserId(),
                         user.getPass(),
@@ -80,7 +85,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public String updateUser(@Valid User user, BindingResult bindingResult, Model model) {
+    public String updateUser(@Valid User user, BindingResult bindingResult, Model model , HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
             return "redirect:user";
         }
@@ -104,6 +109,7 @@ public class MainController {
                         user.getRoleType(),
                         "", ""
                 ) );
+
 
         return "redirect:user";
     }

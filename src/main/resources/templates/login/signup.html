@@ -5,19 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 
     <title>Telemedicine Opan Api Dev</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <link rel='stylesheet' href='/webjars/bootstrap/4.1.0/css/bootstrap.min.css'>
     <!-- Custom styles for this template -->
     <link href="http://getbootstrap.com/docs/4.1/examples/dashboard/dashboard.css" rel="stylesheet">
     <link href="/css/userinfo.css" rel="stylesheet">
+
+    <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 </head>
 <script>
-    function saveUser(){
-        $('#saveForm').submit();
-    }
+
+    $(document).ready(function() {
+        feather.replace();
+
+        var txtPassword = document.getElementById("pass");
+        var txtConfirmPassword = document.getElementById("repass");
+        txtPassword.onchange = ConfirmPassword;
+        txtConfirmPassword.onkeyup = ConfirmPassword;
+        function ConfirmPassword() {
+            txtConfirmPassword.setCustomValidity("");
+            if (txtPassword.value != txtConfirmPassword.value) {
+                txtConfirmPassword.setCustomValidity("Passwords do not match.");
+            }
+        }
+    });
 </script>
 
 <body>
@@ -47,22 +63,24 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="pass"><b>Password</b></label>
-                                <input type="password" placeholder="Enter Password" name="pass" id="pass" required>
+                                <input type="password" class="form-control" placeholder="Enter Password" name="pass" id="pass"
+                                       title="Password must contain: Minimum 8 characters atleast 1 Alphabet and 1 Number"
+                                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="repass"><b>Repeat Password</b></label>
-                                <input type="password" placeholder="Repeat Password" name="repass" id="repass" required>
+                                <input type="password" class="form-control" placeholder="Repeat Password" name="repass" id="repass" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label><b>Name </b></label>
-                                <input type="text" placeholder="Enter name" name="name" id="name"   >
+                                <input type="text" placeholder="Enter name" name="name" id="name"   required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label><b>Email </b></label>
-                                <input type="text" placeholder="Enter email" name="email" id="email"  >
+                                <input type="email" placeholder="Enter email" name="email" id="email"  required>
                             </div>
                         </div>
 
@@ -101,7 +119,7 @@
 
                         <div class="clearfix">
                             <button type="button" class="cancelbtn">Cancel</button>
-                            <button type="button" class="signupbtn" onclick="saveUser()">Save</button>
+                            <button type="submit" class="signupbtn" >Save</button>
                         </div>
 
 
@@ -111,22 +129,5 @@
         </main>
     </div>
 </div>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="http://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
-<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-
-<!-- Icons -->
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-<script>
-    feather.replace()
-</script>
-
-<!-- Graphs -->
-
 </body>
 </html>

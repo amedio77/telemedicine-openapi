@@ -5,23 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 
     <title>Telemedicine Opan Api Dev</title>
-
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
     <link rel='stylesheet' href='/webjars/bootstrap/4.1.0/css/bootstrap.min.css'>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-
     <!-- Custom styles for this template -->
     <link href="http://getbootstrap.com/docs/4.1/examples/dashboard/dashboard.css" rel="stylesheet">
     <link href="/css/userinfo.css" rel="stylesheet">
 
     <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
-
     <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 </head>
@@ -29,11 +22,19 @@
 
     $(document).ready(function() {
         feather.replace();
+
+        var txtPassword = document.getElementById("pass");
+        var txtConfirmPassword = document.getElementById("repass");
+        txtPassword.onchange = ConfirmPassword;
+        txtConfirmPassword.onkeyup = ConfirmPassword;
+        function ConfirmPassword() {
+            txtConfirmPassword.setCustomValidity("");
+            if (txtPassword.value != txtConfirmPassword.value) {
+                txtConfirmPassword.setCustomValidity("Passwords do not match.");
+            }
+        }
     });
 
-    function saveUser(){
-        $('#saveForm').submit();
-    }
 
 </script>
 
@@ -83,22 +84,24 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="pass"><b>Password</b></label>
-                                <input type="password" placeholder="Enter Password" name="pass" id="pass" required>
+                                <input type="password" class="form-control" placeholder="Enter Password" name="pass" id="pass"
+                                       title="Password must contain: Minimum 8 characters atleast 1 Alphabet and 1 Number"
+                                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="repass"><b>Repeat Password</b></label>
-                                <input type="password" placeholder="Repeat Password" name="repass" id="repass" required>
+                                <input type="password" class="form-control" placeholder="Repeat Password" name="repass" id="repass" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label><b>Name </b></label>
-                                <input type="text" placeholder="Enter name" name="name" id="name" th:value="${userinfo.name}"  >
+                                <input type="text" placeholder="Enter name" id="name"  name="name"  th:value="${userinfo.name}" required >
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label><b>Email </b></label>
-                                <input type="text" placeholder="Enter email" name="email" id="email" th:value="${userinfo.email}"  >
+                                <input type="email" placeholder="Enter email" id="email"  name="email"  th:value="${userinfo.email}"  required>
                             </div>
                         </div>
 
@@ -137,7 +140,7 @@
 
                         <div class="clearfix">
                             <button type="button" class="cancelbtn">Cancel</button>
-                            <button type="button" class="signupbtn" onclick="saveUser()">Save</button>
+                            <button type="submit" class="signupbtn" >Save</button>
                         </div>
 
 
