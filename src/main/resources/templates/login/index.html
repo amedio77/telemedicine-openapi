@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">s
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<form class="form-signin" action="/signin"  method="post">
+<form class="form-signin" th:action="@{/signin}"  method="post">
     <div class="text-center mb-4">
        <!-- <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
         <img class="mb-4" src="/img/tb.png" alt="" >

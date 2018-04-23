@@ -51,7 +51,12 @@ dependencies {
 	//runtime('com.h2database:h2')
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
 	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time', version: '3.0.1.RELEASE'
+
+	compile 'org.webjars:jquery:3.3.1-1'
+	compile 'org.webjars:jquery-ui:1.12.1'
+	compile 'org.webjars:bootstrap:4.1.0'
 
 	compile("org.springframework.boot:spring-boot-devtools")
 	testCompile('org.springframework.boot:spring-boot-starter-test')

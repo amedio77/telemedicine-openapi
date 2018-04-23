@@ -181,11 +181,11 @@
 
                             <div class="form-group ">
                                 <label for="userid" >ID</label>
-                                <input type="text" class="form-control" id="userid" value="test1">
+                                <input type="text" class="form-control" id="userid" th:value="${userinfo.userId}">
                             </div>
                             <div class="form-group">
                                 <label for="userpw">Password</label>
-                                <input type="password" class="form-control" id="userpw" value="1234">
+                                <input type="password" class="form-control" id="userpw" th:value="${userinfo.pass}">
                             </div>
 
                             <div class="form-group">

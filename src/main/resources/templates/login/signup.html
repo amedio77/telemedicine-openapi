@@ -66,8 +66,27 @@
                             </div>
                         </div>
 
-                        <label><b>Role Type </b></label>
-                        <input type="text" placeholder="Enter role type" name="roleType" id="roleType"  >
+                        <!-- <div class="row" sec:authorize="hasRole('ROLE_ADMIN')" >-->
+                        <div class="row" >
+                            <div class="col-md-6 mb-3">
+                                <label><b>Role Type </b></label>
+                                <!--
+                                    <input type="text" placeholder="Enter role type" name="roleType" id="roleType" th:value="${userinfo.roleType}"  >
+                                -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="ADMIN" id="roleType1" name="roleType" th:checked="true">
+                                    <label class="form-check-label" for="roleType1">
+                                        ADMIN Role
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="USER" id="roleType2" name="roleType" th:checked="true">
+                                    <label class="form-check-label" for="roleType2">
+                                        USER Role
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">

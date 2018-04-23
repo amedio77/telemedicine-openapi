@@ -49,11 +49,11 @@ public class MainController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String createUser(@Valid User user, BindingResult bindingResult, Model model) {
-        logger.info("signup save ok !!!");
+
         if (bindingResult.hasErrors()) {
             return "redirect:login";
         }
-        logger.info("signup save ok2!!!");
+
         userInfoRepository.save(
                 new UserInfo( user.getUserId(),
                         user.getPass(),
@@ -69,11 +69,13 @@ public class MainController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String userinfo(Principal principal, Model model) {
-        logger.info("userinfo save !!!");
+
         List<UserInfo> userinfo = userInfoRepository.findByUserId(principal.getName());
-        if( userinfo.size() > 0 ){
-            model.addAttribute("userinfo", userinfo.get(0));
+
+        for( UserInfo m : userinfo) {
+            model.addAttribute("userinfo", m);
         }
+
         return "/user/userinfo.html";
     }
 
@@ -81,6 +83,16 @@ public class MainController {
     public String updateUser(@Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "redirect:user";
+        }
+
+        List<UserInfo> userinfo = userInfoRepository.findByUserId(user.getUserId());
+        String pw = "";
+        for( UserInfo m : userinfo) {
+            pw = m.getPass();
+        }
+
+        if(user.getPass() == null || "".equals(user.getPass())){
+            user.setPass(pw);
         }
 
         userInfoRepository.save(
@@ -98,8 +110,15 @@ public class MainController {
 
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String testinfo() {
+    public String testinfo(Principal principal, Model model) {
         System.out.println(" testinfo action !!!");
+
+        List<UserInfo> userinfo = userInfoRepository.findByUserId(principal.getName());
+
+        for( UserInfo m : userinfo) {
+            model.addAttribute("userinfo", m);
+        }
+
         return "/test/index.html";
     }
 

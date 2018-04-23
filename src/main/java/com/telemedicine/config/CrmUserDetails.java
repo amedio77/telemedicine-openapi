@@ -35,10 +35,18 @@ public class CrmUserDetails implements UserDetails {
         logger.info("password::"+this.password);
         logger.info("role type::"+user.getRoleType());
 
+        String s_role_type = user.getRoleType();
+
+
         //this.authorities = translate(com.telemedicine.config.user.getRoles());
         List<GrantedAuthority> authorities = new ArrayList<>();
-        //authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+        String[] myData = s_role_type.split(",");
+        for (String s: myData) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_"+s));
+
+            logger.info("add role::"+s);
+        }
         this.authorities=authorities ;
     }
 /*

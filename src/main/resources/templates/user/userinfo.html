@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,15 +9,32 @@
 
     <title>Telemedicine Opan Api Dev</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel='stylesheet' href='/webjars/bootstrap/4.1.0/css/bootstrap.min.css'>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
     <!-- Custom styles for this template -->
     <link href="http://getbootstrap.com/docs/4.1/examples/dashboard/dashboard.css" rel="stylesheet">
     <link href="/css/userinfo.css" rel="stylesheet">
+
+    <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+
+    <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 </head>
 <script>
+
+    $(document).ready(function() {
+        feather.replace();
+    });
+
     function saveUser(){
         $('#saveForm').submit();
     }
+
 </script>
 
 <body>
@@ -85,8 +102,27 @@
                             </div>
                         </div>
 
-                        <label><b>Role Type </b></label>
-                        <input type="text" placeholder="Enter role type" name="roleType" id="roleType" th:value="${userinfo.roleType}"  >
+                       <!-- <div class="row" sec:authorize="hasRole('ROLE_ADMIN')" >-->
+                        <div class="row" >
+                            <div class="col-md-6 mb-3">
+                                <label><b>Role Type </b></label>
+                                <!--
+                                    <input type="text" placeholder="Enter role type" name="roleType" id="roleType" th:value="${userinfo.roleType}"  >
+                                -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="ADMIN" id="roleType1" name="roleType" th:checked="${#strings.contains(userinfo.roleType,'ADMIN')}">
+                                    <label class="form-check-label" for="roleType1">
+                                        ADMIN Role
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="USER" id="roleType2" name="roleType" th:checked="${#strings.contains(userinfo.roleType,'USER')}">
+                                    <label class="form-check-label" for="roleType2">
+                                        USER Role
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -111,22 +147,6 @@
         </main>
     </div>
 </div>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="http://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
-<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-
-<!-- Icons -->
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-<script>
-    feather.replace()
-</script>
-
-<!-- Graphs -->
 
 </body>
 </html>

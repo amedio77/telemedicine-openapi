@@ -3,6 +3,7 @@ package com.telemedicine.user.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Data
 @AllArgsConstructor
+@DynamicUpdate
 @Table(name="user_info")
 public  class UserInfo {
 
@@ -20,7 +22,7 @@ public  class UserInfo {
 	}
 
 	@Id
-	@Column(name="user_id")
+	@Column(name="user_id", updatable = false)
     private String userId;
 
     private String 	pass;
