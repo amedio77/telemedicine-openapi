@@ -16,6 +16,12 @@ public class CodeArea {
     @Column(name="code_id")
     private String codeId;
 
-    @Column(name="constraint")
-    private String constraint;
+    @Column(name="contents")
+    private String contents;
+
+    @Column(name="contents_en")
+    private String contents_en;
+
+    @Column(name="contents_ch")
+    private String contents_ch;
 }
