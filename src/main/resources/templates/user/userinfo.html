@@ -1,23 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Telemedicine Opan Api Dev</title>
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-    <link rel='stylesheet' href='/webjars/bootstrap/4.1.0/css/bootstrap.min.css'>
-    <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/docs/4.1/examples/dashboard/dashboard.css" rel="stylesheet">
-    <link href="/css/userinfo.css" rel="stylesheet">
-
-    <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/layout/Layout">
 <script>
 
     $(document).ready(function() {
@@ -35,121 +18,91 @@
         }
     });
 
-
 </script>
 
 <body>
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Telemedicine</a>
-    <!--<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">-->
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" href="/logout">Sign out</a>
-        </li>
-    </ul>
-</nav>
+<section layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <main role="main" class="col-md-9 ml-sm-auto px-4">
+                <div class="table-responsive">
+                    <form id="saveForm" name="saveForm" action="#" th:action="@{/user}" th:object="${user}" method="post">
+                        <div class="container">
+                            <h1>개발자 정보</h1>
+                            <hr>
 
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/user">
-                            <span data-feather="home"></span>
-                            개발자 정보
-                            <!--<span class="sr-only">(current)</span>-->
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/test">
-                            <span data-feather="file"></span>
-                            Api Test
-                        </a>
-                    </li>
-                </ul>
-            </div>s
-        </nav>
+                            <label><b>ID </b></label>
+                            <input type="text" placeholder="Enter userid" name="userId" id="userId" th:value="${userinfo.userId}" readonly >
 
-        <main role="main" class="col-md-9 ml-sm-auto px-4">
-            <div class="table-responsive">
-                <form id="saveForm" name="saveForm" action="#" th:action="@{/user}" th:object="${user}" method="post">
-                    <div class="container">
-                        <h1>개발자 정보</h1>
-                        <hr>
-
-                        <label><b>ID </b></label>
-                        <input type="text" placeholder="Enter userid" name="userId" id="userId" th:value="${userinfo.userId}" readonly >
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="pass"><b>Password</b></label>
-                                <input type="password" class="form-control" placeholder="Enter Password" name="pass" id="pass"
-                                       title="Password must contain: Minimum 8 characters atleast 1 Alphabet and 1 Number"
-                                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" />
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="repass"><b>Repeat Password</b></label>
-                                <input type="password" class="form-control" placeholder="Repeat Password" name="repass" id="repass" />
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label><b>Name </b></label>
-                                <input type="text" placeholder="Enter name" id="name"  name="name"  th:value="${userinfo.name}" required >
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label><b>Email </b></label>
-                                <input type="email" placeholder="Enter email" id="email"  name="email"  th:value="${userinfo.email}"  required>
-                            </div>
-                        </div>
-
-                       <!-- <div class="row" sec:authorize="hasRole('ROLE_ADMIN')" >-->
-                        <div class="row" >
-                            <div class="col-md-6 mb-3">
-                                <label><b>Role Type </b></label>
-                                <!--
-                                    <input type="text" placeholder="Enter role type" name="roleType" id="roleType" th:value="${userinfo.roleType}"  >
-                                -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="ADMIN" id="roleType1" name="roleType" th:checked="${#strings.contains(userinfo.roleType,'ADMIN')}">
-                                    <label class="form-check-label" for="roleType1">
-                                        ADMIN Role
-                                    </label>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="pass"><b>Password</b></label>
+                                    <input type="password" class="form-control" placeholder="Enter Password" name="pass" id="pass"
+                                           title="Password must contain: Minimum 8 characters atleast 1 Alphabet and 1 Number"
+                                           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" />
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="USER" id="roleType2" name="roleType" th:checked="${#strings.contains(userinfo.roleType,'USER')}">
-                                    <label class="form-check-label" for="roleType2">
-                                        USER Role
-                                    </label>
+                                <div class="col-md-6 mb-3">
+                                    <label for="repass"><b>Repeat Password</b></label>
+                                    <input type="password" class="form-control" placeholder="Repeat Password" name="repass" id="repass" />
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label><b>CLIENT_ID </b></label>
-                                <input type="text" name="clientId" id="clientId" readonly value="crmClient1s">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label><b>Name </b></label>
+                                    <input type="text" placeholder="Enter name" id="name"  name="name"  th:value="${userinfo.name}" required >
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label><b>Email </b></label>
+                                    <input type="email" placeholder="Enter email" id="email"  name="email"  th:value="${userinfo.email}"  required>
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label><b>CLIENT_SECRET </b></label>
-                                <input type="text" name="clientSecret" id="clientSecret" readonly value="crmSuperSecret">
+
+                           <!-- <div class="row" sec:authorize="hasRole('ROLE_ADMIN')" >-->
+                            <div class="row" >
+                                <div class="col-md-6 mb-3">
+                                    <label><b>Role Type </b></label>
+                                    <!--
+                                        <input type="text" placeholder="Enter role type" name="roleType" id="roleType" th:value="${userinfo.roleType}"  >
+                                    -->
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="ADMIN" id="roleType1" name="roleType" th:checked="${#strings.contains(userinfo.roleType,'ADMIN')}">
+                                        <label class="form-check-label" for="roleType1">
+                                            ADMIN Role
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="USER" id="roleType2" name="roleType" th:checked="${#strings.contains(userinfo.roleType,'USER')}">
+                                        <label class="form-check-label" for="roleType2">
+                                            USER Role
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label><b>CLIENT_ID </b></label>
+                                    <input type="text" name="clientId" id="clientId" readonly value="crmClient1s">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label><b>CLIENT_SECRET </b></label>
+                                    <input type="text" name="clientSecret" id="clientSecret" readonly value="crmSuperSecret">
+                                </div>
+                            </div>
+
+                            <div class="clearfix">
+                                <button type="button" class="cancelbtn">Cancel</button>
+                                <button type="submit" class="signupbtn" >Save</button>
+                            </div>
+
+
                         </div>
-
-                        <div class="clearfix">
-                            <button type="button" class="cancelbtn">Cancel</button>
-                            <button type="submit" class="signupbtn" >Save</button>
-                        </div>
-
-
-                    </div>
-                </form>
-            </div>
-        </main>
+                    </form>
+                </div>
+            </main>
+        </div>
     </div>
-</div>
-
+</section>
 </body>
 </html>

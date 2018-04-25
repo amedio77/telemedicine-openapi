@@ -1,5 +1,6 @@
 package com.telemedicine.config;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -71,19 +72,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login/**","/signup/**").permitAll()
+                .antMatchers("/login/**","/signup/**","/layout/**").permitAll()
                 .antMatchers("/img/**","/js/*.js","/css/*.css","/favicon.ico").permitAll()
                 .antMatchers("/oauth/token").permitAll()
                 .antMatchers("/oauth/authorize").permitAll()
-                .antMatchers("/api/**").authenticated()
-                .antMatchers("/user").authenticated()
-                .antMatchers("/test").authenticated()
-                .antMatchers("/api/**").hasRole("ADMIN")
-                .antMatchers("/user").hasRole("ADMIN")
-                .antMatchers("/test").hasRole("ADMIN")
-                .antMatchers("/api/**").hasRole("USER")
-                .antMatchers("/user").hasRole("USER")
-                .antMatchers("/test").hasRole("USER")
+                .antMatchers("/api/**","/admin/**","/user/**","/test/**").authenticated()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/**","/user/**","/test/**").hasAnyRole("ADMIN","USER")
+
                 //.antMatchers("/api/userinfo").hasRole("ADMIN")
                 //.anyRequest().authenticated()
                 //.and().httpBasic().realmName("CRM_REALM")
@@ -143,5 +139,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
+    }
 }
