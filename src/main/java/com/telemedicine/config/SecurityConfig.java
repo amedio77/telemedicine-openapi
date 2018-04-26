@@ -86,8 +86,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin().loginPage("/login")
                 .loginProcessingUrl("/signin")
                 .usernameParameter("userid").passwordParameter("password")
-                .and().formLogin().defaultSuccessUrl("/test")
-                .and().exceptionHandling().accessDeniedPage("/login/index.html")
+                .and().formLogin().defaultSuccessUrl("/test").failureUrl("/loginError?msg=loginFail")
+                .and().exceptionHandling().accessDeniedPage("/loginError?msg=accessDenied")
                 .and().csrf().disable();
     }
 

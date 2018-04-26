@@ -1,0 +1,12 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>error</title>
+</head>
+<body>
+     <p>에러가 발생 하였습니다</p>
+     <p th:text="${#strings.equals(param.msg,'loginFail')? '로그인에 실패하였습니다.':''}"> </p>
+     <p th:text="${#strings.equals(param.msg,'accessDenied')? '접근 원한이 없습니다.':''}"></p>
+     <p> <a th:href="@{/login}"> 로그인 </a> </p>
+</body>
+</html>

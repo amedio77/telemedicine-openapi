@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorator="/layout/Layout">
 <script>
 
@@ -60,7 +60,7 @@
 
                            <!-- <div class="row" sec:authorize="hasRole('ROLE_ADMIN')" >-->
                             <div class="row" >
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-3" th:hidden="hidden">
                                     <label><b>Role Type </b></label>
                                     <!--
                                         <input type="text" placeholder="Enter role type" name="roleType" id="roleType" th:value="${userinfo.roleType}"  >
@@ -80,8 +80,8 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
+                            <div class="row" th:hidden="hidden">
+                                <div class="col-md-6 mb-3" >
                                     <label><b>CLIENT_ID </b></label>
                                     <input type="text" name="clientId" id="clientId" readonly value="crmClient1s">
                                 </div>

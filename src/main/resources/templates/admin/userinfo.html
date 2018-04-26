@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="/layout/Layout">
+<head>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+        feather.replace();
+
+        var txtPassword = document.getElementById("pass");
+        var txtConfirmPassword = document.getElementById("repass");
+        txtPassword.onchange = ConfirmPassword;
+        txtConfirmPassword.onkeyup = ConfirmPassword;
+        function ConfirmPassword() {
+            txtConfirmPassword.setCustomValidity("");
+            if (txtPassword.value != txtConfirmPassword.value) {
+                txtConfirmPassword.setCustomValidity("Passwords do not match.");
+            }
+        }
+    });
+
+    function getUserInfoById(userId){
+          location.href="/admin?userId="+userId;
+    }
+</script>
+</head>
+<body>
+
+<section layout:fragment="content">
+        <div class="container-fluid">
+            <div class="row">
+                <main role="main" class="col-md-9 ml-sm-auto px-4">
+                    <div class="table-responsive">
+                        <form id="saveForm" name="saveForm" action="#" th:action="@{/admin}" th:object="${user}" method="post">
+                            <div class="container">
+                                <h1>개발자 정보 수정</h1>
+
+                                <hr>
+
+                                <div class="row">
+                                    <label><b>ID </b></label>
+                                    <!--<input type="text" placeholder="Enter userid" name="userId" id="userId" th:value="${userinfo.userId}" readonly >-->
+                                    <select name="userId" onchange="getUserInfoById(this.value)">
+                                        <option>Select</option>
+                                        <option th:each="n : ${userInfoList}" th:value="${n.userId}" th:text="${n.userId}" th:selected="${#strings.equals(userinfo.userId,n.userId)}"/>
+                                    </select>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pass"><b>Password</b></label>
+                                        <input type="password" class="form-control" placeholder="Enter Password" name="pass" id="pass"
+                                               title="Password must contain: Minimum 8 characters atleast 1 Alphabet and 1 Number"
+                                               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="repass"><b>Repeat Password</b></label>
+                                        <input type="password" class="form-control" placeholder="Repeat Password" name="repass" id="repass" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label><b>Name </b></label>
+                                        <input type="text" placeholder="Enter name" id="name"  name="name"  th:value="${userinfo.name}" required >
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label><b>Email </b></label>
+                                        <input type="email" placeholder="Enter email" id="email"  name="email"  th:value="${userinfo.email}"  required>
+                                    </div>
+                                </div>
+
+                               <!-- <div class="row" sec:authorize="hasRole('ROLE_ADMIN')" >-->
+                                <div class="row" >
+                                    <div class="col-md-6 mb-3">
+                                        <label><b>Role Type </b></label>
+                                        <!--
+                                            <input type="text" placeholder="Enter role type" name="roleType" id="roleType" th:value="${userinfo.roleType}"  >
+                                        -->
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="ADMIN" id="roleType1" name="roleType" th:checked="${#strings.contains(userinfo.roleType,'ADMIN')}">
+                                            <label class="form-check-label" for="roleType1">
+                                                ADMIN Role
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="USER" id="roleType2" name="roleType" th:checked="${#strings.contains(userinfo.roleType,'USER')}">
+                                            <label class="form-check-label" for="roleType2">
+                                                USER Role
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label><b>CLIENT_ID </b></label>
+                                        <input type="text" name="clientId" id="clientId" readonly value="crmClient1s">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label><b>CLIENT_SECRET </b></label>
+                                        <input type="text" name="clientSecret" id="clientSecret" readonly value="crmSuperSecret">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix">
+                                    <button type="button" class="cancelbtn">Cancel</button>
+                                    <button type="submit" class="signupbtn" >Save</button>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+                </main>
+            </div>
+        </div>
+</section>
+</body>
+</html>

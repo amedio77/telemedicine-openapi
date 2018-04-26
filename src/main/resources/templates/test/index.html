@@ -33,9 +33,13 @@
                     , "Access-Control-Allow-Headers": "origin, x-requested-with, content-type, accept"
                 },
                 data: {'username': $('#userid').val(), 'password': $('#userpw').val(), 'grant_type': "password"}
-            }).then(function (data) {
-                $('#stoken').val(data.access_token);
-               // $('#srefresh_token').val(data.refresh_token);
+                ,success:function(data){
+                    $('#stoken').val(data.access_token);
+                }
+                ,error:function(request,status,error){
+                    //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    alert('토큰 요청에 장애가 발생 하였습니다.');
+                }
             });
         }
 
@@ -72,10 +76,21 @@
                     , "Authorization": "Bearer " + $('#stoken').val()
                 }
                 //,data: {'username': $('#userid').val(), 'password': $('#userpw').val(),'grant_type': "password"}
-            }).then(function (data) {
-                $('#json-container').jsonPresenter({
-                    json: data, // JSON objects here
-                });
+                ,success:function(data){
+                    $('#json-container').jsonPresenter({
+                        json: data, // JSON objects here
+                    });
+                }
+                ,error:function(request,status,error){
+                    //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    if(request.status == 403){
+                        alert('권한이 없습니다.');
+                    }else if(request.status == 401){
+                        alert('잘못된 Access Token 입니다.');
+                    }else {
+                        alert('장애가 발생 하였습니다.');
+                    }
+                }
             });
         }
     </script>

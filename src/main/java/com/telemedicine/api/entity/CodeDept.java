@@ -2,20 +2,19 @@ package com.telemedicine.api.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
 @Table(name="code_dept")
+@IdClass(HospDeptId.class)
 public class CodeDept {
 
     @Id
     @Column(name="code_id")
     private String codeId;
 
+    @Id
     @Column(name="hosp_id")
     private String hospId;
 

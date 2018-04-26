@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Telemedicine Opan Api Dev</title>
+        <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+        <link rel='stylesheet' href='/webjars/bootstrap/4.1.0/css/bootstrap.min.css'>
+        <!-- Custom styles for this template -->
+        <link href="http://getbootstrap.com/docs/4.1/examples/dashboard/dashboard.css" rel="stylesheet">
+        <link href="/css/userinfo.css" rel="stylesheet">
+
+        <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <!-- Icons -->
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                feather.replace()
+            });
+        </script>
+    </head>
+    <body>
+        <header>
+
+            <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/login">Telemedicine</a>
+                <!--<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">-->
+                <ul class="navbar-nav px-3">
+                    <li class="nav-item text-nowrap">
+                        <a class="nav-link" href="/logout">Sign out</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')" >
+                            <a class="nav-link" href="/admin" th:classappend="${#httpServletRequest.getRequestURI().endsWith('/admin') ? 'active':''}">
+                                <span data-feather="monitor"></span>
+                                관리자
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user" th:classappend="${#httpServletRequest.getRequestURI().endsWith('/user') ? 'active':''}">
+                                <span data-feather="user"></span>
+                                개발자 정보
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/test" th:classappend="${#httpServletRequest.getRequestURI().endsWith('/test') ? 'active':''}">
+                                <span data-feather="file"></span>
+                                Api Test
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <section layout:fragment="content">
+            <p>Page content goes here</p>
+        </section>
+        <footer>
+            <p>My footer</p>
+            <p layout:fragment="custom-footer">Custom footer here</p>
+        </footer>
+    </body>
+</html>
