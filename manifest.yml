@@ -8,3 +8,4 @@ applications:
   buildpack: https://github.com/cloudfoundry/java-buildpack
   env:
       SPRING_PROFILES_ACTIVE : cloud
+      #SPRING_PROFILES_ACTIVE : defaultß
