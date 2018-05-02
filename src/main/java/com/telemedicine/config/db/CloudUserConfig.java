@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.Cloud;
 import org.springframework.cloud.CloudFactory;
 import org.springframework.cloud.config.java.AbstractCloudConfig;
+import org.springframework.cloud.config.java.ServiceScan;
 import org.springframework.cloud.service.PooledServiceConnectorConfig;
 import org.springframework.cloud.service.relational.DataSourceConfig;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
+@ServiceScan
 @PropertySource({ "classpath:application.properties" })
 @EnableJpaRepositories(
         basePackages = {"com.telemedicine.user.repositoty"},
@@ -40,7 +42,7 @@ public class CloudUserConfig extends AbstractCloudConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(userDataSource());
-        em.setPackagesToScan(new String[] { "com.telemedicine.user.entity" });
+        em.setPackagesToScan(new String[]{"com.telemedicine.user.entity"});
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
@@ -52,6 +54,13 @@ public class CloudUserConfig extends AbstractCloudConfig {
     }
 
     @Bean
+    public PlatformTransactionManager userTransactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(userEntityManager().getObject());
+        return transactionManager;
+    }
+
+    @Bean
     public DataSource userDataSource() {
         //PooledServiceConnectorConfig.PoolConfig poolConfig = new PooledServiceConnectorConfig.PoolConfig(5, 30, 3000);
         //DataSourceConfig.ConnectionConfig connConfig = new DataSourceConfig.ConnectionConfig("useUnicode=yes;characterEncoding=UTF-8");
@@ -60,6 +69,4 @@ public class CloudUserConfig extends AbstractCloudConfig {
         //return connectionFactory().dataSource("my-spring-db");
         return connectionFactory().dataSource();
     }
-
-
 }

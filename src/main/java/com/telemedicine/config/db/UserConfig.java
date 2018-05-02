@@ -2,6 +2,7 @@ package com.telemedicine.config.db;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.config.java.AbstractCloudConfig;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -14,7 +15,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 import java.util.HashMap;
 
-
+/*
 @Configuration
 @PropertySource({ "classpath:application.properties" })
 @EnableJpaRepositories(
@@ -22,8 +23,9 @@ import java.util.HashMap;
         entityManagerFactoryRef = "userEntityManager",
         transactionManagerRef = "userTransactionManager"
 )
-@Profile("default")
-public class UserConfig {
+//@Profile("default")
+*/
+public class UserConfig  {
 
     @Autowired
     private Environment env;
@@ -37,8 +39,8 @@ public class UserConfig {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto", "create-drop");
-        //properties.put("hibernate.hbm2ddl.auto", "update");
+        //properties.put("hibernate.hbm2ddl.auto", "create-drop");
+        properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         em.setJpaPropertyMap(properties);
         return em;
