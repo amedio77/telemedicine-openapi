@@ -15,7 +15,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 import java.util.HashMap;
 
-/*
 @Configuration
 @PropertySource({ "classpath:application.properties" })
 @EnableJpaRepositories(
@@ -23,8 +22,7 @@ import java.util.HashMap;
         entityManagerFactoryRef = "userEntityManager",
         transactionManagerRef = "userTransactionManager"
 )
-//@Profile("default")
-*/
+@Profile("default")
 public class UserConfig  {
 
     @Autowired

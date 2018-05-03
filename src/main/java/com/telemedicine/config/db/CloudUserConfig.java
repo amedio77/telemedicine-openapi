@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
-@ServiceScan
+//@ServiceScan
 @PropertySource({ "classpath:application.properties" })
 @EnableJpaRepositories(
         basePackages = {"com.telemedicine.user.repositoty"},
@@ -46,7 +46,7 @@ public class CloudUserConfig extends AbstractCloudConfig {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto", "create-drop");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         //properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         em.setJpaPropertyMap(properties);
@@ -66,7 +66,7 @@ public class CloudUserConfig extends AbstractCloudConfig {
         //DataSourceConfig.ConnectionConfig connConfig = new DataSourceConfig.ConnectionConfig("useUnicode=yes;characterEncoding=UTF-8");
         //DataSourceConfig dbConfig = new DataSourceConfig(poolConfig, null);
         //return connectionFactory().dataSource("my-spring-db",dbConfig);
-        //return connectionFactory().dataSource("my-spring-db");
-        return connectionFactory().dataSource();
+        return connectionFactory().dataSource("my_mysql");
+        //return connectionFactory().dataSource();
     }
 }
