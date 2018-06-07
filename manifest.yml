@@ -7,4 +7,4 @@ applications:
   path: build/libs/telemedicine-api-0.0.1-SNAPSHOT.jar
   buildpack: https://github.com/cloudfoundry/java-buildpack
   env:
-      SPRING_PROFILES_ACTIVE : cloud
+      SPRING_PROFILES_ACTIVE : default

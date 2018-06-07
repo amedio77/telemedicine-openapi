@@ -20,7 +20,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		//-- define URL patterns to enable OAuth2 security
         //OAuth 인증을 받도록 하는 역할
 		http.
-				anonymous().disable()
+				anonymous().disable().csrf().disable()
 				.requestMatchers().antMatchers("/api/**")
 				.and().authorizeRequests()
 				.antMatchers("/api/userinfo/**","/api/member/**","/api/telemedicines/**").access("hasRole('ADMIN') ")

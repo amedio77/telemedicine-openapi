@@ -1,0 +1,9 @@
+{
+
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ]
+}

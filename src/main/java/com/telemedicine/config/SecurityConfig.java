@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,6 +23,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
@@ -71,9 +73,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login/**","/signup/**","/layout/**").permitAll()
-                .antMatchers("/img/**","/js/*.js","/css/*.css","/favicon.ico").permitAll()
+                .antMatchers("/login/**","/signup/**","/layout/**","/json/**").permitAll()
+                .antMatchers("/img/**","/js/*.js","/css/*.css","/favicon.ico" ).permitAll()
                 .antMatchers("/oauth/token").permitAll()
                 .antMatchers("/oauth/authorize").permitAll()
                 .antMatchers("/api/**","/admin/**","/user/**","/test/**").authenticated()

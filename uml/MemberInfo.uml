@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.telemedicine.api.entity.MemberInfo</OriginalElement>
+  <nodes>
+    <node x="-434.5" y="-5.0">com.telemedicine.api.entity.MemberInfo</node>
+    <node x="-476.0" y="583.0">com.telemedicine.api.repository.MemberInfoRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.telemedicine.api.repository.MemberInfoRepository" target="com.telemedicine.api.entity.MemberInfo">
+      <point x="0.0" y="-37.0" />
+      <point x="0.0" y="269.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="167.0" y="419.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

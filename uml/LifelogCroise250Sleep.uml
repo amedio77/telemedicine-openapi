@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.telemedicine.api.entity.LifelogCroise250Sleep</OriginalElement>
+  <nodes>
+    <node x="73.5" y="0.0">com.telemedicine.api.entity.LifelogCroise250Sleep</node>
+    <node x="0.0" y="456.0">com.telemedicine.api.repository.LifelogCroiseSleep250Repository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.telemedicine.api.repository.LifelogCroiseSleep250Repository" target="com.telemedicine.api.entity.LifelogCroise250Sleep">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="203.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="143.5" y="75.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

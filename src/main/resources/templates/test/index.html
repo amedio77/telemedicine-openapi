@@ -3,6 +3,7 @@
       layout:decorator="/layout/Layout">
 <head>
     <title>Test Page</title>
+    <link rel="manifest" href="/json/manifest.json">
     <script src="/js/jquery.jsonPresenter.js"></script>
     <script>
 
@@ -13,8 +14,8 @@
         function getToken() {
             var hostname = window.location.origin;
             $.ajax({
-                // url: "https://telemedicine-api-delightful-roan.34.203.146.2.xip.io/",
-                url: hostname+"/oauth/token",
+                 url: "https://telemedicine-api-grumpy-tiger.34.238.1.42.xip.io/oauth/token",
+                //url: hostname+"/oauth/token",
                 type: "POST"
                 , dataType: "json"
                 // , jsonp : "jsonp"
@@ -28,6 +29,7 @@
                     'Authorization': 'Basic '+btoa($('#clientid').val() + ":" + $('#secret').val()),
                     'Cache-Control': 'no-cache',
                     'Content-Type': 'application/x-www-form-urlencoded',
+                    'withCredentials': 'true',
                     "Access-Control-Allow-Origin": "*"
                     , "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS"
                     , "Access-Control-Allow-Headers": "origin, x-requested-with, content-type, accept"
@@ -160,9 +162,11 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <div id="json-container">...</div>
                                 </div>
+
                         </div>
                     </main>
                 </div>
